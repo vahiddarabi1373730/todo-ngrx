@@ -15,3 +15,12 @@ export interface FormModelInterface {
   isShow?: boolean
   children?: FormModelInterface[];
 }
+
+
+export interface AboutMeInterface {
+  name: string,
+  family: string,
+  age: string,
+  location: string,
+  language: string
+}

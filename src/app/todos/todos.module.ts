@@ -19,6 +19,7 @@ import {FormGeneratorModule} from "../components/form-generator/form-generator.m
 import {UpdateTodoModule} from "../_directives/update-todo/update-todo.module";
 import {FilteredIdModule} from "../_directives/filtered-id/filtered-id.module";
 import {MatSortModule} from "@angular/material/sort";
+import {AboutMeResolver} from "../_resolvers/about-me-resolver";
 
 
 const routes: Routes = [
@@ -26,6 +27,13 @@ const routes: Routes = [
   {
     path: "grid",
     loadChildren: () => import('../display-todos-with-grid/display-todos-with-grid.module').then(m => m.DisplayTodosWithGridModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('../about/about.module').then(m => m.AboutModule),
+    resolve: {
+      aboutMe: AboutMeResolver
+    }
   }
 ]
 
