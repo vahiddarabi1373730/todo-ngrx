@@ -1,0 +1,8 @@
+<h3 mat-dialog-title>Add Todo</h3>
+<app-form-generator [fields]="formFields" [form]="formGroup"
+></app-form-generator>
+<section mat-dialog-actions>
+  <button [disabled]="formGroup.invalid" (click)="onSubmit()" mat-dialog-close mat-raised-button color="primary">Add
+  </button>
+  <button (click)="onCanceled()" mat-raised-button mat-dialog-close color="warn">Cancel</button>
+</section>

@@ -1,0 +1,75 @@
+<section>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" #input (input)="onFilterOrderByName($any($event.target).value)">
+  </mat-form-field>
+  <div app-filtered-id (dataSource)="onFilterOrderById($event)"></div>
+</section>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="onClick($event,row)" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+
+      </td>
+    </ng-container>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
+      <td mat-cell *matCellDef="let row"> {{row.time}} </td>
+    </ng-container>
+
+    <!-- Fruit Column -->
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration</th>
+      <td mat-cell *matCellDef="let row"> {{row.duration}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                 aria-label="Select page of users"></mat-paginator>
+</div>
+
+<div style="margin-top: 10px;display: flex;column-gap: 12px">
+  <button mat-raised-button (click)="addTodo()" mat-button color="primary"> Add Todo</button>
+  <button *appUpdateTodo="true" [disabled]="!onTodoChecked" mat-raised-button (click)="updateTodo()" mat-button
+          color="accent">
+    Update Todo
+  </button>
+  <button [disabled]="!onTodoChecked" mat-raised-button (click)="deleteTodo()" mat-button color="warn"> Remove Todo
+  </button>
+  <button [disabled]="selection.selected.length!==dataSource.data.length" mat-raised-button (click)="deleteAllTodos()"
+          mat-button color="warn"> Remove All
+    Todo
+  </button>
+
+</div>
+

@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="o-container">
+  <ng-container *ngFor="let field of fields">
+    <ng-container *ngIf="field.isShow">
+      <ng-container [ngSwitch]="field.type">
+        <ng-container *ngSwitchCase="'fc'">
+          <mat-form-field>
+            <mat-label>{{field.name.toUpperCase()}}</mat-label>
+            <input [formControlName]="field.name" matInput/>
+            <mat-icon matSuffix fontIcon="work"></mat-icon>
+            <mat-hint>{{field.name.toUpperCase()}}</mat-hint>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'fg'">
+          <div [formGroupName]="field.name">
+            <ng-container *ngFor="let subChild of field.children">
+              <ng-container [ngSwitch]="subChild.type">
+                <ng-container *ngSwitchCase="'fc'">
+                  <mat-form-field>
+                    <mat-label>{{subChild.name.toUpperCase()}}</mat-label>
+                    <input [formControlName]="subChild.name" matInput/>
+                    <mat-icon matSuffix fontIcon="work"></mat-icon>
+                    <mat-hint>{{subChild.name.toUpperCase()}}</mat-hint>
+                  </mat-form-field>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</form>

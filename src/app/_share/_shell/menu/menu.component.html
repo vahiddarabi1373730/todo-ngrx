@@ -1,0 +1,38 @@
+<ng-container *ngIf="!(isOpenMenuTree | async);else menuTree">
+  <button mat-fab extended [matMenuTriggerFor]="todos" color="primary">
+    <mat-icon>list</mat-icon>
+  </button>
+
+  <mat-menu #todos='matMenu'>
+    <button mat-menu-item [matMenuTriggerFor]="template">Template</button>
+    <button mat-menu-item [matMenuTriggerFor]="grid">Grid</button>
+  </mat-menu>
+
+  <mat-menu #template>
+    <button mat-menu-item routerLink="" routerLinkActive="active">Template</button>
+  </mat-menu>
+
+  <mat-menu #grid>
+    <button mat-menu-item routerLink="grid" routerLinkActive="active">Grid</button>
+  </mat-menu>
+</ng-container>
+
+<ng-template #menuTree>
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [routerLink]="node.route" routerLinkActive="active">
+      <button mat-icon-button></button>
+      {{node.name}}
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding [routerLink]="node.route"
+                   routerLinkActive="active">
+      <button mat-icon-button matTreeNodeToggle
+
+              [attr.aria-label]="'Toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.name}}
+    </mat-tree-node>
+  </mat-tree>
+</ng-template>

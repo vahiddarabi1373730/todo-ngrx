@@ -1,0 +1,12 @@
+<ag-grid-angular #agGrid
+                 style="width: 100%; height: 100%;" class="ag-theme-alpine"
+                 [rowData]="rowData"
+                 [columnDefs]="gridOptions?.columnDefs"
+                 (gridReady)="onGridReady($event)"
+                 [defaultColDef]="gridOptions.defaultColDef"
+                 [gridOptions]="gridOptions"
+
+>
+
+
+</ag-grid-angular>
